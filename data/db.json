@@ -1,5 +1,22 @@
 [
   {
+    "id": 6,
+    "name": "[Gp] Standoff 2 (0.6.0)",
+    "pkg": null,
+    "version": null,
+    "vcode": null,
+    "minsdk": null,
+    "targetsdk": null,
+    "abi": [
+      "armeabi-v7a",
+      "x86"
+    ],
+    "size": "45.2 MB",
+    "apk": "https://archive.org/download/gp-standoff-2-0.6.0/[GP] Standoff 2 (0.6.0).apk",
+    "obb": null,
+    "icon": null
+  },
+  {
     "id": 3,
     "name": "Mcpe0.1.0Demo",
     "pkg": null,
