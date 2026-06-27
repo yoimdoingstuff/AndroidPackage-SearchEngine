@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<title>APK Archive</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #f1f1f1; font-family: Arial, Helvetica, sans-serif; font-size: 13px; color: #333; }
+
+/* ── TOP BAR ── */
+#topbar { background: #3d3d3d; height: 30px; line-height: 30px; padding: 0 16px; }
+#topbar-inner { max-width: 980px; margin: 0 auto; overflow: hidden; }
+#topbar .logo-text { color: #fff; font-size: 12px; float: left; }
+#topbar .logo-text span { color: #4fc3f7; font-weight: bold; }
+#topbar .tagline { color: #aaa; font-size: 11px; float: right; }
+
+/* ── HEADER ── */
+#header { background: #fff; border-bottom: 1px solid #ddd; padding: 0; }
+#header-inner { max-width: 980px; margin: 0 auto; padding: 8px 16px; overflow: hidden; }
+#site-title { float: left; }
+#site-title h1 { font-size: 22px; font-weight: normal; color: #555; line-height: 1; }
+#site-title h1 strong { color: #4285f4; }
+#site-title .sub { font-size: 11px; color: #999; margin-top: 2px; }
+#header-search { float: right; margin-top: 4px; }
+#header-search input { border: 1px solid #bbb; border-right: none; padding: 6px 10px; font-size: 13px; width: 220px; border-radius: 2px 0 0 2px; outline: none; color: #333; }
+#header-search button { background: #f5f5f5; border: 1px solid #bbb; padding: 6px 12px; font-size: 13px; cursor: pointer; border-radius: 0 2px 2px 0; color: #333; }
+#header-search button:active { background: #e0e0e0; }
+
+/* ── NAV TABS ── */
+#nav { background: #fff; border-bottom: 2px solid #ddd; }
+#nav-inner { max-width: 980px; margin: 0 auto; padding: 0 16px; overflow: hidden; }
+.nav-tab { display: inline-block; padding: 8px 14px; font-size: 13px; color: #555; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; font-weight: bold; }
+.nav-tab:hover { color: #333; }
+.nav-tab.active { color: #4285f4; border-bottom-color: #4285f4; }
+#nav-right { float: right; padding-top: 6px; }
+#random-btn { background: none; border: 1px solid #ccc; padding: 4px 10px; font-size: 12px; cursor: pointer; border-radius: 2px; color: #555; }
+#random-btn:active { background: #f0f0f0; }
+
+/* ── LAYOUT ── */
+#body-wrap { max-width: 980px; margin: 0 auto; padding: 14px 16px; overflow: hidden; }
+#sidebar { float: left; width: 170px; margin-right: 16px; }
+#main { overflow: hidden; }
+
+/* ── SIDEBAR ── */
+.sidebar-section { background: #fff; border: 1px solid #ddd; margin-bottom: 12px; }
+.sidebar-head { background: #f5f5f5; border-bottom: 1px solid #ddd; padding: 7px 10px; font-size: 12px; font-weight: bold; color: #444; }
+.sidebar-body { padding: 6px 0; }
+.sidebar-item { display: block; padding: 5px 10px; font-size: 12px; color: #1a73e8; cursor: pointer; text-decoration: none; }
+.sidebar-item:hover { background: #e8f0fe; color: #1558b0; }
+.sidebar-item.active { background: #e8f0fe; color: #1558b0; font-weight: bold; }
+.sidebar-filter { padding: 8px 10px; }
+.sidebar-filter label { display: block; color: #555; font-size: 11px; margin-bottom: 3px; }
+.sidebar-filter input[type=text] { width: 100%; border: 1px solid #ccc; padding: 4px 6px; font-size: 12px; border-radius: 2px; }
+.sidebar-filter select { width: 100%; border: 1px solid #ccc; padding: 4px 4px; font-size: 12px; border-radius: 2px; background: #fff; }
+.sidebar-filter .check-row { margin-top: 4px; font-size: 12px; color: #555; }
+.sidebar-filter .check-row input { vertical-align: middle; margin-right: 4px; }
+#filter-btn { display: block; width: 100%; background: #4285f4; color: #fff; border: none; padding: 7px; font-size: 13px; font-weight: bold; cursor: pointer; margin-top: 8px; border-radius: 2px; }
+#filter-btn:active { background: #2a6dda; }
+
+/* ── STATUS ── */
+#status-bar { margin-bottom: 10px; }
+.status-msg { background: #fff3cd; border: 1px solid #ffd966; color: #7a5800; padding: 7px 10px; font-size: 12px; border-radius: 2px; }
+.status-msg.err { background: #fce8e6; border-color: #f5c6c6; color: #c62828; }
+.status-msg.ok  { background: #e6f4ea; border-color: #a8d5b0; color: #1e6e32; }
+
+/* ── SECTION HEADER ── */
+.section-head { overflow: hidden; margin-bottom: 8px; border-bottom: 1px solid #ddd; padding-bottom: 6px; }
+.section-head h2 { font-size: 15px; font-weight: bold; color: #333; float: left; }
+.section-head .see-all { float: right; font-size: 12px; color: #1a73e8; cursor: pointer; line-height: 22px; }
+.results-count { font-size: 12px; color: #888; float: right; line-height: 22px; }
+
+/* ── FEATURED STRIP (homescreen) ── */
+.feat-strip { overflow: hidden; margin-bottom: 14px; }
+.feat-card { float: left; width: 23%; margin-right: 2%; background: #fff; border: 1px solid #ddd; padding: 10px; cursor: pointer; }
+.feat-card:last-child { margin-right: 0; }
+.feat-card:active { background: #f5f5f5; }
+.feat-icon { width: 48px; height: 48px; margin: 0 auto 6px; display: block; }
+.feat-icon .ip { width: 48px; height: 48px; border-radius: 8px; display: block; text-align: center; line-height: 48px; font-size: 20px; font-weight: bold; color: #fff; }
+.feat-name { font-size: 12px; font-weight: bold; color: #333; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.feat-pkg  { font-size: 11px; color: #888; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* ── LIST ENTRIES (search results) ── */
+.entry { background: #fff; border: 1px solid #ddd; margin-bottom: 8px; padding: 10px; overflow: hidden; }
+.entry:active { background: #fafafa; }
+.e-icon { float: left; width: 56px; height: 56px; margin-right: 10px; border-radius: 6px; overflow: hidden; border: 1px solid #e0e0e0; }
+.e-icon .ip { width: 56px; height: 56px; display: block; text-align: center; line-height: 56px; font-size: 22px; font-weight: bold; color: #fff; }
+.e-icon img { width: 56px; height: 56px; }
+.e-body { overflow: hidden; }
+.e-name { font-size: 15px; font-weight: bold; color: #1a73e8; margin-bottom: 1px; }
+.e-pkg  { font-size: 11px; color: #888; font-family: monospace; margin-bottom: 4px; }
+.e-meta { font-size: 12px; color: #555; margin-bottom: 6px; }
+.e-meta span { margin-right: 12px; }
+.badge { display: inline-block; background: #e8f0fe; color: #1558b0; border: 1px solid #c5d5f5; border-radius: 10px; padding: 1px 7px; font-size: 11px; margin: 1px 2px 1px 0; }
+.badge.abi { background: #fce8e6; color: #b31412; border-color: #f5c6c6; }
+.e-btns { margin-top: 6px; }
+.dl-btn { display: inline-block; background: #4285f4; color: #fff; border: none; padding: 5px 14px; font-size: 12px; cursor: pointer; border-radius: 2px; text-decoration: none; margin-right: 6px; margin-bottom: 3px; }
+.dl-btn:active { background: #2a6dda; }
+.dl-btn.obb { background: #ea4335; }
+.dl-btn.obb:active { background: #c5221f; }
+.show-all { font-size: 12px; color: #1a73e8; cursor: pointer; text-decoration: underline; display: inline-block; line-height: 26px; }
+
+/* detail expand */
+.e-detail { display: none; border-top: 1px solid #eee; margin-top: 8px; padding-top: 8px; }
+.e-detail table { border-collapse: collapse; font-size: 12px; }
+.e-detail table td { padding: 2px 10px 2px 0; color: #555; vertical-align: top; }
+.e-detail table td:first-child { color: #888; width: 100px; white-space: nowrap; }
+
+/* ── STATS BAR ── */
+.stats-bar { overflow: hidden; margin-bottom: 12px; }
+.stat-box { float: left; width: 31%; margin-right: 3%; background: #fff; border: 1px solid #ddd; padding: 10px; text-align: center; border-radius: 2px; }
+.stat-box:last-child { margin-right: 0; }
+.stat-num { font-size: 24px; font-weight: bold; color: #4285f4; }
+.stat-lbl { font-size: 11px; color: #888; margin-top: 2px; }
+
+/* ── QUICK FILTERS ── */
+.qf-btn { display: inline-block; background: #fff; border: 1px solid #ddd; color: #444; border-radius: 12px; padding: 4px 12px; margin: 3px 3px 3px 0; font-size: 12px; cursor: pointer; }
+.qf-btn:active { background: #e8f0fe; border-color: #4285f4; color: #1558b0; }
+
+/* ── PAGINATION ── */
+#pagination { text-align: center; margin: 12px 0 4px; }
+#pagination button { background: #fff; border: 1px solid #ddd; color: #4285f4; padding: 6px 14px; font-size: 13px; cursor: pointer; border-radius: 2px; margin: 2px; }
+#pagination button:hover { background: #e8f0fe; }
+#pagination button.active { background: #4285f4; color: #fff; border-color: #4285f4; cursor: default; }
+#pagination button:disabled { background: #f5f5f5; color: #aaa; border-color: #ddd; cursor: default; }
+
+/* ── MISC ── */
+.clearfix:after { content: ""; display: table; clear: both; }
+.hidden { display: none; }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div id="topbar">
+  <div id="topbar-inner">
+    <span class="logo-text">&#9654; <span>APK</span> Archive</span>
+    <span class="tagline">Archival index of Android apps hosted on archive.org</span>
+  </div>
+</div>
+
+<!-- HEADER -->
+<div id="header">
+  <div id="header-inner">
+    <div id="site-title">
+      <h1><strong>APK</strong> Archive</h1>
+      <div class="sub">A searchable index of preserved Android apps</div>
+    </div>
+    <div id="header-search">
+      <input type="text" id="s-name" placeholder="Search apps&hellip;" onkeydown="if((event||window.event).keyCode===13)doSearch()">
+      <button onclick="doSearch()">Search</button>
+    </div>
+  </div>
+</div>
+
+<!-- NAV TABS -->
+<div id="nav">
+  <div id="nav-inner">
+    <span class="nav-tab active" onclick="showHome()">Home</span>
+    <span class="nav-tab" onclick="quickFilter(0)">All Apps</span>
+    <span class="nav-tab" onclick="quickFilter(1)">With OBB</span>
+    <span class="nav-tab" onclick="quickFilter(2)">Old Device Compatible</span>
+    <div id="nav-right">
+      <button id="random-btn" onclick="randomAPK()">&#9654; Random</button>
+    </div>
+  </div>
+</div>
+
+<!-- BODY -->
+<div id="body-wrap" class="clearfix">
+
+  <!-- SIDEBAR -->
+  <div id="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-head">Filter</div>
+      <div class="sidebar-body">
+        <div class="sidebar-filter">
+          <label>Package ID</label>
+          <input type="text" id="s-pkg" placeholder="com.rovio.">
+          <label style="margin-top:7px">Architecture</label>
+          <select id="s-abi">
+            <option value="">Any</option>
+            <option value="arm64-v8a">arm64-v8a</option>
+            <option value="armeabi-v7a">armeabi-v7a</option>
+            <option value="armeabi">armeabi</option>
+            <option value="x86">x86</option>
+            <option value="x86_64">x86_64</option>
+          </select>
+          <label style="margin-top:7px">Max Min-SDK</label>
+          <input type="text" id="s-minsdk" placeholder="e.g. 10  (API level)">
+          <div class="check-row"><label><input type="checkbox" id="s-unique" checked> Unique packages only</label></div>
+          <div class="check-row"><label><input type="checkbox" id="s-hasobb"> Has OBB bundle</label></div>
+          <button id="filter-btn" onclick="doSearch()">Apply Filter</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-head">Quick Filters</div>
+      <div class="sidebar-body">
+        <span class="sidebar-item" onclick="quickFilter(3)">armeabi-v7a</span>
+        <span class="sidebar-item" onclick="quickFilter(4)">Pure Java</span>
+        <span class="sidebar-item" onclick="quickFilter(5)">Android 2.x+</span>
+        <span class="sidebar-item" onclick="quickFilter(6)">Android 4.x+</span>
+        <span class="sidebar-item" onclick="quickFilter(1)">Has OBB Bundle</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div id="main">
+    <div id="status-bar"></div>
+    <div id="homescreen"></div>
+    <div id="results-wrap" class="hidden">
+      <div class="section-head clearfix">
+        <h2 id="results-title">Results</h2>
+        <span class="results-count" id="results-count"></span>
+      </div>
+      <div id="content"></div>
+      <div id="pagination"></div>
+    </div>
+  </div>
+
+</div><!-- /body-wrap -->
+
+<script>
+var DB = [], DB_LOADED = false;
+var currentResults = [], currentPage = 0, PAGE_SIZE = 10;
+var searchHasRun = false;
+
+var SDK_NAMES = {7:"2.1",8:"2.2",9:"2.3",10:"2.3.3",14:"4.0",15:"4.0.3",16:"4.1",17:"4.2",18:"4.3",19:"4.4",21:"5.0",23:"6.0",26:"8.0",28:"9.0",29:"10",30:"11"};
+var ICON_COLORS = ["#4285f4","#ea4335","#fbbc04","#34a853","#9c27b0","#00838f","#e65100","#1565c0","#2e7d32","#6a1b9a"];
+
+function sdkLabel(n) {
+  if (!n && n !== 0) return "?";
+  var s = SDK_NAMES[n];
+  return "API " + n + (s ? " (Android " + s + ")" : "");
+}
+function iconColor(name) {
+  var h = 0;
+  for (var i = 0; i < (name||"").length; i++) h = (h * 31 + (name||"").charCodeAt(i)) & 0xffffffff;
+  return ICON_COLORS[Math.abs(h) % ICON_COLORS.length];
+}
+
+// ── LOAD ──────────────────────────────────────────────────────────────────────
+function loadDB() {
+  setStatus("Loading database...", "");
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", "data/db.json", true);
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState !== 4) return;
+    if (xhr.status === 200) {
+      try {
+        DB = JSON.parse(xhr.responseText);
+        DB_LOADED = true;
+        clearStatus();
+        if (!loadURL()) renderHomescreen();
+      } catch(e) { setStatus("Failed to parse database: " + e, "err"); }
+    } else {
+      DB = MOCK_DB; DB_LOADED = true;
+      setStatus("No data/db.json found — showing demo data. Run the crawler to build a real database.", "");
+      if (!loadURL()) renderHomescreen();
+    }
+  };
+  xhr.send();
+}
+
+function setStatus(msg, cls) {
+  document.getElementById("status-bar").innerHTML = '<div class="status-msg ' + (cls||"") + '">' + esc(msg) + '</div>';
+}
+function clearStatus() { document.getElementById("status-bar").innerHTML = ""; }
+
+// ── HOMESCREEN ────────────────────────────────────────────────────────────────
+function renderHomescreen() {
+  searchHasRun = false;
+  document.getElementById("results-wrap").className = "hidden";
+  var hs = document.getElementById("homescreen");
+
+  var pkgs = {}, withObb = 0;
+  for (var i = 0; i < DB.length; i++) {
+    if (DB[i].pkg) pkgs[DB[i].pkg] = true;
+    if (DB[i].obb) withObb++;
+  }
+
+  var html = '<div class="stats-bar clearfix">';
+  html += '<div class="stat-box"><div class="stat-num">' + DB.length + '</div><div class="stat-lbl">Total APKs</div></div>';
+  html += '<div class="stat-box"><div class="stat-num">' + Object.keys(pkgs).length + '</div><div class="stat-lbl">Unique Apps</div></div>';
+  html += '<div class="stat-box"><div class="stat-num">' + withObb + '</div><div class="stat-lbl">With OBB Bundle</div></div>';
+  html += '</div>';
+
+  // Featured strip
+  html += '<div class="section-head clearfix"><h2>Featured Apps</h2><span class="see-all" onclick="quickFilter(0)">See all &rarr;</span></div>';
+  html += '<div class="feat-strip clearfix">';
+  var feat = DB.slice(0, 8);
+  for (var f = 0; f < feat.length && f < 4; f++) html += featCardHTML(feat[f]);
+  html += '</div>';
+
+  // Recently added
+  html += '<div class="section-head clearfix" style="margin-top:6px"><h2>Recently Added</h2></div>';
+  html += '<div class="feat-strip clearfix">';
+  var rec = DB.slice(-4).reverse();
+  for (var r = 0; r < rec.length; r++) html += featCardHTML(rec[r]);
+  html += '</div>';
+
+  // Quick filters
+  html += '<div class="section-head clearfix" style="margin-top:6px"><h2>Browse By</h2></div>';
+  var qfs = ["All APKs","With OBB Bundle","Old Device Compatible (API &le;10)","armeabi-v7a","Pure Java / No native libs","Android 2.x+","Android 4.x+"];
+  html += '<div style="margin-bottom:12px">';
+  for (var q = 0; q < qfs.length; q++) html += '<span class="qf-btn" onclick="quickFilter(' + q + ')">' + qfs[q] + '</span>';
+  html += '</div>';
+
+  // Apps with OBB
+  var obbList = [];
+  for (var o = 0; o < DB.length && obbList.length < 4; o++) if (DB[o].obb) obbList.push(DB[o]);
+  if (obbList.length) {
+    html += '<div class="section-head clearfix"><h2>Apps with OBB Bundle</h2><span class="see-all" onclick="quickFilter(1)">See all &rarr;</span></div>';
+    html += '<div class="feat-strip clearfix">';
+    for (var ob = 0; ob < obbList.length; ob++) html += featCardHTML(obbList[ob]);
+    html += '</div>';
+  }
+
+  hs.innerHTML = html;
+  window._qfList = ["","?obb=1","?minsdk=10","?abi=armeabi-v7a","?abi=_pure","?minsdk=10","?minsdk=15"];
+}
+
+function showHome() {
+  document.getElementById("s-name").value = "";
+  renderHomescreen();
+  updateURL();
+}
+
+function featCardHTML(e) {
+  var col = iconColor(e.name);
+  var letter = (e.name || "?").charAt(0).toUpperCase();
+  var icon = e.icon
+    ? '<img src="' + esc(e.icon) + '" class="feat-icon" width="48" height="48" alt="">'
+    : '<span class="feat-icon ip" style="background:' + col + ';border-radius:8px">' + letter + '</span>';
+  return '<div class="feat-card" onclick="showEntry(' + e.id + ')">'
+    + icon
+    + '<div class="feat-name">' + esc(e.name || "Unknown") + '</div>'
+    + '<div class="feat-pkg">' + esc(e.pkg || "") + '</div>'
+    + '</div>';
+}
+
+function showEntry(id) {
+  for (var i = 0; i < DB.length; i++) {
+    if (DB[i].id === id) {
+      currentResults = [DB[i]]; currentPage = 0; searchHasRun = true;
+      document.getElementById("homescreen").innerHTML = "";
+      document.getElementById("results-wrap").className = "";
+      document.getElementById("results-title").innerHTML = "App Detail";
+      document.getElementById("results-count").innerHTML = "";
+      document.getElementById("content").innerHTML = entryHTML(DB[i], false, true);
+      document.getElementById("pagination").innerHTML = "";
+      return;
+    }
+  }
+}
+
+// ── QUICK FILTER ──────────────────────────────────────────────────────────────
+var _QF = [
+  {},
+  {obb:true},
+  {minsdk:"10"},
+  {abi:"armeabi-v7a"},
+  {abi:"_pure"},
+  {minsdk:"10"},
+  {minsdk:"15"}
+];
+
+function quickFilter(idx) {
+  var f = _QF[idx] || {};
+  document.getElementById("s-name").value = "";
+  document.getElementById("s-pkg").value = "";
+  document.getElementById("s-abi").value = f.abi && f.abi !== "_pure" ? f.abi : "";
+  document.getElementById("s-minsdk").value = f.minsdk || "";
+  document.getElementById("s-unique").checked = true;
+  document.getElementById("s-hasobb").checked = !!f.obb;
+  // pure java: clear abi filter and handle in search via flag
+  window._filterPureJava = (f.abi === "_pure");
+  doSearch();
+}
+
+// ── SEARCH ────────────────────────────────────────────────────────────────────
+function doSearch() {
+  if (!DB_LOADED) { setStatus("Database not loaded yet...", ""); return; }
+  var name   = document.getElementById("s-name").value.toLowerCase().trim();
+  var pkg    = document.getElementById("s-pkg").value.toLowerCase().trim();
+  var abi    = document.getElementById("s-abi").value;
+  var maxsdk = parseInt(document.getElementById("s-minsdk").value, 10);
+  var unique = document.getElementById("s-unique").checked;
+  var hasobb = document.getElementById("s-hasobb").checked;
+  var pureJava = !!window._filterPureJava;
+
+  var seen = {}, res = [];
+  for (var i = 0; i < DB.length; i++) {
+    var e = DB[i];
+    if (name && (e.name||"").toLowerCase().indexOf(name) === -1 && (e.pkg||"").toLowerCase().indexOf(name) === -1) continue;
+    if (pkg  && (e.pkg||"").toLowerCase().indexOf(pkg) === -1) continue;
+    if (abi  && (!e.abi || e.abi.indexOf(abi) === -1)) continue;
+    if (pureJava && e.abi && e.abi.length > 0) continue;
+    if (!isNaN(maxsdk) && e.minsdk > maxsdk) continue;
+    if (hasobb && !e.obb) continue;
+    if (unique) { if (seen[e.pkg]) continue; seen[e.pkg] = true; }
+    res.push(e);
+  }
+
+  currentResults = res; currentPage = 0; searchHasRun = true;
+  document.getElementById("homescreen").innerHTML = "";
+  document.getElementById("results-wrap").className = "";
+  var titleParts = [];
+  if (name) titleParts.push('"' + name + '"');
+  document.getElementById("results-title").innerHTML = titleParts.length ? "Results for " + titleParts.join(" ") : "All Results";
+  renderResults();
+  updateURL();
+}
+
+function randomAPK() {
+  if (!DB_LOADED || !DB.length) return;
+  showEntry(DB[Math.floor(Math.random() * DB.length)].id);
+}
+
+// ── RENDER ────────────────────────────────────────────────────────────────────
+function entryHTML(e, short, expanded) {
+  var col = iconColor(e.name);
+  var letter = (e.name || "?").charAt(0).toUpperCase();
+  var icon = e.icon
+    ? '<img src="' + esc(e.icon) + '" width="' + (short?40:56) + '" height="' + (short?40:56) + '" alt="">'
+    : '<span class="ip" style="width:'+(short?40:56)+'px;height:'+(short?40:56)+'px;line-height:'+(short?40:56)+'px;font-size:'+(short?16:22)+'px;background:'+col+'">' + letter + '</span>';
+
+  var abiHTML = "";
+  if (!e.abi || e.abi.length === 0) {
+    abiHTML = '<span class="badge">pure Java</span>';
+  } else {
+    for (var a = 0; a < e.abi.length; a++) abiHTML += '<span class="badge abi">' + e.abi[a] + '</span>';
+  }
+
+  var html = '<div class="entry">';
+  html += '<div class="e-icon" style="float:left;width:'+(short?40:56)+'px;height:'+(short?40:56)+'px;margin-right:10px">' + icon + '</div>';
+  html += '<div class="e-body">';
+  html += '<div class="e-name">' + esc(e.name || "Unknown") + '</div>';
+  html += '<div class="e-pkg">' + esc(e.pkg || "") + '</div>';
+  html += '<div class="e-meta">';
+  html += '<span>v' + esc(e.version||"?") + '</span>';
+  html += '<span>Min: ' + sdkLabel(e.minsdk) + '</span>';
+  if (e.size) html += '<span>' + esc(e.size) + '</span>';
+  html += '</div>';
+  html += '<div>' + abiHTML + (e.obb ? '<span class="badge" style="background:#fff8e1;color:#e65100;border-color:#ffe0b2">OBB</span>' : '') + '</div>';
+
+  if (expanded || !short) {
+    html += '<div class="e-detail" style="display:block">';
+    html += '<table>';
+    html += '<tr><td>Version code</td><td>' + esc(e.vcode||"?") + '</td></tr>';
+    html += '<tr><td>Target SDK</td><td>' + sdkLabel(e.targetsdk) + '</td></tr>';
+    html += '<tr><td>Source</td><td><a href="https://archive.org" rel="noopener noreferrer nofollow">archive.org</a></td></tr>';
+    html += '</table></div>';
+    html += '<div class="e-btns">';
+    html += '<a class="dl-btn" href="' + esc(e.apk) + '" rel="noopener noreferrer nofollow">&#8659; Download APK</a>';
+    if (e.obb) html += '<a class="dl-btn obb" href="' + esc(e.obb) + '" rel="noopener noreferrer nofollow">&#8659; OBB Bundle</a>';
+    html += '<span class="show-all" onclick="showAllVersions(\'' + esc(e.pkg) + '\')">All versions</span>';
+    html += '</div>';
+  } else {
+    html += '<div class="e-btns">';
+    html += '<a class="dl-btn" href="' + esc(e.apk) + '" rel="noopener noreferrer nofollow">&#8659; APK</a>';
+    if (e.obb) html += '<a class="dl-btn obb" href="' + esc(e.obb) + '" rel="noopener noreferrer nofollow">&#8659; OBB</a>';
+    html += '<span class="show-all" onclick="showAllVersions(\'' + esc(e.pkg) + '\')">All versions</span>';
+    html += '</div>';
+  }
+
+  html += '</div></div>';
+  return html;
+}
+
+function renderResults() {
+  var total = currentResults.length;
+  var count = document.getElementById("results-count");
+  var content = document.getElementById("content");
+  if (total === 0) {
+    content.innerHTML = '<div style="padding:24px;text-align:center;color:#888">No apps found matching your filters.</div>';
+    count.innerHTML = "";
+    document.getElementById("pagination").innerHTML = "";
+    return;
+  }
+  var unique = document.getElementById("s-unique").checked;
+  var start = currentPage * PAGE_SIZE;
+  var end = Math.min(start + PAGE_SIZE, total);
+  count.innerHTML = (start+1) + "–" + end + " of " + total;
+  var html = "";
+  for (var i = start; i < end; i++) html += entryHTML(currentResults[i], unique, false);
+  content.innerHTML = html;
+  renderPagination(total);
+}
+
+function renderPagination(total) {
+  var pages = Math.ceil(total / PAGE_SIZE);
+  if (pages <= 1) { document.getElementById("pagination").innerHTML = ""; return; }
+  var html = "";
+  if (currentPage > 0) html += '<button onclick="goPage(' + (currentPage-1) + ')">&#8592; Prev</button> ';
+  var s = Math.max(0, currentPage-2), e2 = Math.min(pages-1, currentPage+2);
+  for (var p = s; p <= e2; p++)
+    html += '<button onclick="goPage('+p+')"'+(p===currentPage?' class="active" disabled':'')+'>'+( p+1)+'</button> ';
+  if (currentPage < pages-1) html += '<button onclick="goPage('+(currentPage+1)+')">Next &#8594;</button>';
+  document.getElementById("pagination").innerHTML = html;
+}
+
+function goPage(p) { currentPage = p; renderResults(); window.scrollTo(0,0); }
+
+function showAllVersions(pkg) {
+  document.getElementById("s-pkg").value = pkg;
+  document.getElementById("s-unique").checked = false;
+  document.getElementById("s-name").value = "";
+  document.getElementById("s-abi").value = "";
+  document.getElementById("s-minsdk").value = "";
+  document.getElementById("s-hasobb").checked = false;
+  window._filterPureJava = false;
+  doSearch();
+}
+
+// ── URL STATE ─────────────────────────────────────────────────────────────────
+function updateURL() {
+  var params = [], v;
+  v = document.getElementById("s-name").value;   if (v) params.push("q="+encodeURIComponent(v));
+  v = document.getElementById("s-pkg").value;    if (v) params.push("pkg="+encodeURIComponent(v));
+  v = document.getElementById("s-abi").value;    if (v) params.push("abi="+encodeURIComponent(v));
+  v = document.getElementById("s-minsdk").value; if (v) params.push("minsdk="+encodeURIComponent(v));
+  if (!document.getElementById("s-unique").checked) params.push("unique=0");
+  if (document.getElementById("s-hasobb").checked)  params.push("obb=1");
+  if (window._filterPureJava) params.push("pure=1");
+  var url = window.location.pathname + (params.length ? "?" + params.join("&") : "");
+  if (history.replaceState) history.replaceState(null, "", url);
+}
+
+function loadURL() {
+  if (!window.location.search) return false;
+  var p = window.location.search.substring(1).split("&"), any = false;
+  for (var i = 0; i < p.length; i++) {
+    var kv = p[i].split("="), k = kv[0], v = decodeURIComponent(kv[1]||"");
+    if (k==="q")      { document.getElementById("s-name").value=v; any=true; }
+    if (k==="pkg")    { document.getElementById("s-pkg").value=v; any=true; }
+    if (k==="abi")    { document.getElementById("s-abi").value=v; any=true; }
+    if (k==="minsdk") { document.getElementById("s-minsdk").value=v; any=true; }
+    if (k==="unique") { document.getElementById("s-unique").checked=v!=="0"; }
+    if (k==="obb")    { document.getElementById("s-hasobb").checked=v==="1"; any=true; }
+    if (k==="pure")   { window._filterPureJava=true; any=true; }
+  }
+  if (any) doSearch();
+  return any;
+}
+
+function esc(s) {
+  if (s===null||s===undefined) return "";
+  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+
+var inputs = document.getElementsByTagName("input");
+for (var i = 0; i < inputs.length; i++) {
+  inputs[i].onkeydown = function(e) { if ((e||window.event).keyCode===13) doSearch(); };
+}
+
+// ── MOCK DATA ─────────────────────────────────────────────────────────────────
+var MOCK_DB = [
+  { id:1,  name:"Angry Birds",         pkg:"com.rovio.angrybirds",             version:"2.1.0", vcode:210, minsdk:8,  targetsdk:17, abi:["armeabi-v7a"],           size:"35 MB", apk:"https://archive.org/download/apk-rovio/angrybirds_2.1.0.apk",        obb:"https://archive.org/download/apk-rovio/angrybirds_2.1.0_obb.zip", icon:null },
+  { id:2,  name:"Angry Birds",         pkg:"com.rovio.angrybirds",             version:"1.6.3", vcode:163, minsdk:7,  targetsdk:14, abi:["armeabi"],               size:"28 MB", apk:"https://archive.org/download/apk-rovio/angrybirds_1.6.3.apk",        obb:null, icon:null },
+  { id:3,  name:"Angry Birds Space",   pkg:"com.rovio.angrybirdsspace",        version:"2.2.1", vcode:221, minsdk:9,  targetsdk:17, abi:["armeabi-v7a"],           size:"42 MB", apk:"https://archive.org/download/apk-rovio/abspace_2.2.1.apk",           obb:"https://archive.org/download/apk-rovio/abspace_2.2.1_obb.zip", icon:null },
+  { id:4,  name:"Cut the Rope",        pkg:"com.zeptolab.ctr",                 version:"1.7.0", vcode:170, minsdk:8,  targetsdk:16, abi:["armeabi-v7a","armeabi"], size:"22 MB", apk:"https://archive.org/download/apk-zeptolab/ctr_1.7.0.apk",           obb:null, icon:null },
+  { id:5,  name:"Subway Surfers",      pkg:"com.kiloo.subwaysurf",             version:"1.2.0", vcode:120, minsdk:9,  targetsdk:17, abi:["armeabi-v7a"],           size:"55 MB", apk:"https://archive.org/download/apk-kiloo/subway_1.2.0.apk",            obb:"https://archive.org/download/apk-kiloo/subway_1.2.0_obb.zip", icon:null },
+  { id:6,  name:"Temple Run",          pkg:"com.imangi.templerun",             version:"1.0.8", vcode:108, minsdk:8,  targetsdk:15, abi:["armeabi-v7a"],           size:"18 MB", apk:"https://archive.org/download/apk-imangi/templerun_1.0.8.apk",       obb:null, icon:null },
+  { id:7,  name:"Temple Run 2",        pkg:"com.imangi.templerun2",            version:"1.0.0", vcode:100, minsdk:9,  targetsdk:17, abi:["armeabi-v7a"],           size:"24 MB", apk:"https://archive.org/download/apk-imangi/templerun2_1.0.0.apk",      obb:null, icon:null },
+  { id:8,  name:"Fruit Ninja",         pkg:"com.halfbrick.fruitninja",         version:"2.3.6", vcode:236, minsdk:7,  targetsdk:14, abi:["armeabi"],               size:"15 MB", apk:"https://archive.org/download/apk-halfbrick/fruitninja_2.3.6.apk",   obb:null, icon:null },
+  { id:9,  name:"Minecraft PE",        pkg:"com.mojang.minecraftpe",           version:"0.6.1", vcode:61,  minsdk:10, targetsdk:17, abi:["armeabi-v7a","x86"],     size:"9 MB",  apk:"https://archive.org/download/apk-mojang/mcpe_0.6.1.apk",            obb:null, icon:null },
+  { id:10, name:"Minecraft PE",        pkg:"com.mojang.minecraftpe",           version:"0.9.0", vcode:90,  minsdk:10, targetsdk:19, abi:["armeabi-v7a","x86"],     size:"16 MB", apk:"https://archive.org/download/apk-mojang/mcpe_0.9.0.apk",            obb:null, icon:null },
+  { id:11, name:"Plants vs. Zombies",  pkg:"com.ea.game.pvzfree_row",          version:"1.1.7", vcode:117, minsdk:8,  targetsdk:15, abi:["armeabi-v7a","armeabi"], size:"47 MB", apk:"https://archive.org/download/apk-ea/pvz_1.1.7.apk",                 obb:"https://archive.org/download/apk-ea/pvz_1.1.7_obb.zip", icon:null },
+  { id:12, name:"Jetpack Joyride",     pkg:"com.halfbrick.jetpackjoyride",     version:"1.4.2", vcode:142, minsdk:8,  targetsdk:15, abi:["armeabi-v7a"],           size:"30 MB", apk:"https://archive.org/download/apk-halfbrick/jjr_1.4.2.apk",          obb:"https://archive.org/download/apk-halfbrick/jjr_1.4.2_obb.zip", icon:null },
+  { id:13, name:"Doodle Jump",         pkg:"com.lima.doodlejump",              version:"3.9.5", vcode:395, minsdk:7,  targetsdk:14, abi:["armeabi"],               size:"8 MB",  apk:"https://archive.org/download/apk-lima/doodlejump_3.9.5.apk",        obb:null, icon:null },
+  { id:14, name:"Where's My Water?",   pkg:"com.disney.WMW",                   version:"1.5.0", vcode:150, minsdk:8,  targetsdk:15, abi:["armeabi-v7a"],           size:"26 MB", apk:"https://archive.org/download/apk-disney/wmw_1.5.0.apk",             obb:null, icon:null },
+  { id:15, name:"Shadow Gun",          pkg:"com.madfingergames.shadowgun",     version:"1.0.2", vcode:102, minsdk:9,  targetsdk:16, abi:["armeabi-v7a"],           size:"20 MB", apk:"https://archive.org/download/apk-madfinger/shadowgun_1.0.2.apk",    obb:"https://archive.org/download/apk-madfinger/shadowgun_1.0.2_obb.zip", icon:null },
+  { id:16, name:"SwiftKey Keyboard",   pkg:"com.touchtype.swiftkey",           version:"4.0.0", vcode:400, minsdk:8,  targetsdk:17, abi:["armeabi-v7a","x86"],     size:"12 MB", apk:"https://archive.org/download/apk-touchtype/swiftkey_4.0.0.apk",    obb:null, icon:null },
+  { id:17, name:"SwiftKey Keyboard",   pkg:"com.touchtype.swiftkey",           version:"3.2.1", vcode:321, minsdk:7,  targetsdk:14, abi:["armeabi"],               size:"9 MB",  apk:"https://archive.org/download/apk-touchtype/swiftkey_3.2.1.apk",    obb:null, icon:null },
+  { id:18, name:"Nova Launcher",       pkg:"com.teslacoilsw.launcher",         version:"2.0.2", vcode:202, minsdk:14, targetsdk:17, abi:[],                        size:"4 MB",  apk:"https://archive.org/download/apk-teslacoil/nova_2.0.2.apk",         obb:null, icon:null },
+  { id:19, name:"ES File Explorer",    pkg:"com.estrongs.android.pop",         version:"3.0.5", vcode:305, minsdk:8,  targetsdk:17, abi:[],                        size:"5 MB",  apk:"https://archive.org/download/apk-estrongs/esfe_3.0.5.apk",          obb:null, icon:null },
+  { id:20, name:"Go Launcher EX",      pkg:"com.gau.go.launcherex",            version:"4.11",  vcode:411, minsdk:8,  targetsdk:15, abi:[],                        size:"6 MB",  apk:"https://archive.org/download/apk-golauncher/goex_4.11.apk",         obb:null, icon:null },
+  { id:21, name:"Fieldrunners",        pkg:"com.subatomicstudios.fieldrunners", version:"1.0.3", vcode:103, minsdk:8, targetsdk:14, abi:["armeabi-v7a"],           size:"38 MB", apk:"https://archive.org/download/apk-subatomic/fieldrunners_1.0.3.apk", obb:"https://archive.org/download/apk-subatomic/fieldrunners_obb.zip", icon:null },
+  { id:22, name:"Air Attack HD",       pkg:"com.aia.airattackhd",              version:"1.5",   vcode:15,  minsdk:9,  targetsdk:16, abi:["armeabi-v7a"],           size:"44 MB", apk:"https://archive.org/download/apk-aia/airattack_1.5.apk",            obb:"https://archive.org/download/apk-aia/airattack_1.5_obb.zip", icon:null },
+  { id:23, name:"GTA III",             pkg:"com.rockstar.gta3",                version:"1.4",   vcode:14,  minsdk:9,  targetsdk:17, abi:["armeabi-v7a","x86"],     size:"12 MB", apk:"https://archive.org/download/apk-rockstar/gta3_1.4.apk",            obb:"https://archive.org/download/apk-rockstar/gta3_1.4_obb.zip", icon:null },
+  { id:24, name:"GTA: Vice City",      pkg:"com.rockstar.vicecity",            version:"1.03",  vcode:103, minsdk:9,  targetsdk:17, abi:["armeabi-v7a","x86"],     size:"13 MB", apk:"https://archive.org/download/apk-rockstar/vicecity_1.03.apk",       obb:"https://archive.org/download/apk-rockstar/vicecity_1.03_obb.zip", icon:null },
+  { id:25, name:"Dead Space",          pkg:"com.ea.game.deadspace",            version:"1.1.6", vcode:116, minsdk:9,  targetsdk:16, abi:["armeabi-v7a"],           size:"16 MB", apk:"https://archive.org/download/apk-ea/deadspace_1.1.6.apk",           obb:"https://archive.org/download/apk-ea/deadspace_1.1.6_obb.zip", icon:null },
+];
+
+loadDB();
+</script>
+</body>
+</html>
