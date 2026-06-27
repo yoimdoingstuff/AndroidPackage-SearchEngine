@@ -1,34 +1,82 @@
-{
-  "entries": [
-    {
-      "id": 1,
-      "url": "https://archive.org/download/mcpedemos/PE-a0.1.2j-demo.apk",
-      "base_url": "https://archive.org/details/mcpedemos",
-      "done": 0
-    },
-    {
-      "id": 2,
-      "url": "https://archive.org/download/mcpedemos/PE-a0.2.0j-demo.apk",
-      "base_url": "https://archive.org/details/mcpedemos",
-      "done": 0
-    },
-    {
-      "id": 3,
-      "url": "https://archive.org/download/mcpedemos/mcpe0.1.0demo.apk",
-      "base_url": "https://archive.org/details/mcpedemos",
-      "done": 0
-    },
-    {
-      "id": 4,
-      "url": "https://archive.org/download/mcpedemos/mcpe0.1.1demo.apk",
-      "base_url": "https://archive.org/details/mcpedemos",
-      "done": 0
-    },
-    {
-      "id": 5,
-      "url": "https://archive.org/download/mcpedemos/mcpev0.2.1alpha2demo.apk",
-      "base_url": "https://archive.org/details/mcpedemos",
-      "done": 0
-    }
-  ]
-}
+[
+  {
+    "id": 3,
+    "name": "Mcpe0.1.0Demo",
+    "pkg": null,
+    "version": null,
+    "vcode": null,
+    "minsdk": null,
+    "targetsdk": null,
+    "abi": [
+      "armeabi-v7a"
+    ],
+    "size": "1.6 MB",
+    "apk": "https://archive.org/download/mcpedemos/mcpe0.1.0demo.apk",
+    "obb": null,
+    "icon": null
+  },
+  {
+    "id": 4,
+    "name": "Mcpe0.1.1Demo",
+    "pkg": null,
+    "version": null,
+    "vcode": null,
+    "minsdk": null,
+    "targetsdk": null,
+    "abi": [
+      "armeabi-v7a"
+    ],
+    "size": "1.6 MB",
+    "apk": "https://archive.org/download/mcpedemos/mcpe0.1.1demo.apk",
+    "obb": null,
+    "icon": null
+  },
+  {
+    "id": 5,
+    "name": "Mcpev0.2.1Alpha2Demo",
+    "pkg": null,
+    "version": null,
+    "vcode": null,
+    "minsdk": null,
+    "targetsdk": null,
+    "abi": [
+      "armeabi-v7a"
+    ],
+    "size": "2.8 MB",
+    "apk": "https://archive.org/download/mcpedemos/mcpev0.2.1alpha2demo.apk",
+    "obb": null,
+    "icon": null
+  },
+  {
+    "id": 1,
+    "name": "Pe A0.1.2J Demo",
+    "pkg": null,
+    "version": null,
+    "vcode": null,
+    "minsdk": null,
+    "targetsdk": null,
+    "abi": [
+      "armeabi-v7a"
+    ],
+    "size": "2.0 MB",
+    "apk": "https://archive.org/download/mcpedemos/PE-a0.1.2j-demo.apk",
+    "obb": null,
+    "icon": null
+  },
+  {
+    "id": 2,
+    "name": "Pe A0.2.0J Demo",
+    "pkg": null,
+    "version": null,
+    "vcode": null,
+    "minsdk": null,
+    "targetsdk": null,
+    "abi": [
+      "armeabi-v7a"
+    ],
+    "size": "1.6 MB",
+    "apk": "https://archive.org/download/mcpedemos/PE-a0.2.0j-demo.apk",
+    "obb": null,
+    "icon": null
+  }
+]
