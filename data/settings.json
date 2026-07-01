@@ -1,0 +1,12 @@
+{
+  "workers": 4,
+  "dl_range": false,
+  "fetch_icon": true,
+  "icon_px": 256,
+  "timeout": 300,
+  "gh_owner": "",
+  "gh_repo": "",
+  "gh_token": "",
+  "gh_branch": "main",
+  "gh_git": true
+}

@@ -1,0 +1,22 @@
+{
+  "pkg": "com.nintendo.zara",
+  "icon": "icons/com.nintendo.zara.jpg",
+  "name": "Super Mario Run   Nintendo Co., Ltd.   Version 3.0.11 ~ Modified (Unlimited; Money)",
+  "updated": "2026-06-30T12:16:16.042166+00:00",
+  "versions": [
+    {
+      "version": "3.0.11",
+      "vcode": null,
+      "minsdk": 17,
+      "targetsdk": 27,
+      "abi": [
+        "armeabi-v7a"
+      ],
+      "size": "70.5 MB",
+      "size_bytes": 73913452,
+      "apk_url": "https://archive.org/download/android--games--apk/Super Mario Run - Nintendo Co., Ltd/Super Mario Run - Nintendo Co., Ltd. - Version 3.0.11 ~ Modified (Unlimited; Money).apk",
+      "obb_url": null,
+      "added": "2026-06-30T12:16:15.014338+00:00"
+    }
+  ]
+}

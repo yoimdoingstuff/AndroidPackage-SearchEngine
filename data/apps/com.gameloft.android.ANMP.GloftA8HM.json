@@ -1,0 +1,22 @@
+{
+  "pkg": "com.gameloft.android.ANMP.GloftA8HM",
+  "icon": "icons/com.gameloft.android.ANMP.GloftA8HM.jpg",
+  "name": "Asphalt 8; Airborne   Gameloft   Version 3.7.1A ~ Modified; (Unlimited; Money. Free Buy)",
+  "updated": "2026-06-30T12:15:37.439826+00:00",
+  "versions": [
+    {
+      "version": "3.7.1a",
+      "vcode": null,
+      "minsdk": 15,
+      "targetsdk": 26,
+      "abi": [
+        "armeabi-v7a"
+      ],
+      "size": "71.7 MB",
+      "size_bytes": 75142974,
+      "apk_url": "https://archive.org/download/android--games--apk/Asphalt 8; Airborne - Gameloft/Asphalt 8; Airborne - Gameloft - Version 3.7.1a ~ Modified; (Unlimited; Money. Free Buy).apk",
+      "obb_url": null,
+      "added": "2026-06-30T12:15:32.312915+00:00"
+    }
+  ]
+}

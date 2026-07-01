@@ -1,0 +1,22 @@
+{
+  "pkg": "com.mojang.minecraftpe.demo",
+  "icon": "icons/com.mojang.minecraftpe.demo.jpg",
+  "name": "Pe A0.1.2J Demo",
+  "updated": "2026-06-30T12:13:40.536500+00:00",
+  "versions": [
+    {
+      "version": "0.1.2",
+      "vcode": null,
+      "minsdk": 7,
+      "targetsdk": 8,
+      "abi": [
+        "armeabi-v7a"
+      ],
+      "size": "2.0 MB",
+      "size_bytes": 2075698,
+      "apk_url": "https://archive.org/download/mcpedemos/PE-a0.1.2j-demo.apk",
+      "obb_url": null,
+      "added": "2026-06-30T12:13:33.117342+00:00"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "pkg": "cn.konami.contraevo.gp",
+  "icon": "icons/cn.konami.contraevo.gp.jpg",
+  "name": "Contra; Evolution   Konami Digital Entertainment   Version 1.3.2  Build 1.32.39 ~ Modified (Unlimited; Money (Coins, Gems), Lifes)",
+  "updated": "2026-06-30T12:15:44.371976+00:00",
+  "versions": [
+    {
+      "version": "1.3.2",
+      "vcode": null,
+      "minsdk": 7,
+      "targetsdk": 17,
+      "abi": [
+        "armeabi"
+      ],
+      "size": "18.1 MB",
+      "size_bytes": 18965710,
+      "apk_url": "https://archive.org/download/android--games--apk/Contra; Evolution - Konami Digital Entertainment/Contra; Evolution - Konami Digital Entertainment - Version 1.3.2  Build 1.32.39 ~ Modified (Unlimited; Money (Coins, Gems), Lifes).apk",
+      "obb_url": null,
+      "added": "2026-06-30T12:15:42.350297+00:00"
+    }
+  ]
+}

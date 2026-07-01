@@ -1,0 +1,23 @@
+{
+  "pkg": "com.leosfortune",
+  "icon": "icons/com.leosfortune.jpg",
+  "name": "Leo'S Fortune   1337 & Senri Llc   Version 1.0.5",
+  "updated": "2026-06-30T12:15:56.749324+00:00",
+  "versions": [
+    {
+      "version": "1.0.5",
+      "vcode": null,
+      "minsdk": 14,
+      "targetsdk": 21,
+      "abi": [
+        "armeabi-v7a",
+        "x86"
+      ],
+      "size": "44.2 MB",
+      "size_bytes": 46307439,
+      "apk_url": "https://archive.org/download/android--games--apk/Leo's Fortune - 1337 & Senri LLC/Leo's Fortune - 1337 & Senri LLC - Version 1.0.5.apk",
+      "obb_url": null,
+      "added": "2026-06-30T12:15:56.749195+00:00"
+    }
+  ]
+}

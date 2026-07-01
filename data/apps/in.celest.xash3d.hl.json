@@ -1,0 +1,24 @@
+{
+  "pkg": "in.celest.xash3d.hl",
+  "icon": "icons/in.celest.xash3d.hl.jpg",
+  "name": "Xash3D Fwgs   Flying With Gauss   Version 0.19.2",
+  "updated": "2026-06-30T12:15:48.395827+00:00",
+  "versions": [
+    {
+      "version": "0.19.2",
+      "vcode": null,
+      "minsdk": 3,
+      "targetsdk": 19,
+      "abi": [
+        "armeabi",
+        "armeabi-v7a",
+        "x86"
+      ],
+      "size": "7.0 MB",
+      "size_bytes": 7373277,
+      "apk_url": "https://archive.org/download/android--games--apk/Counter-Strike 1.6 - Flying With Gauss/Xash3D FWGS - Flying With Gauss - Version 0.19.2.apk",
+      "obb_url": null,
+      "added": "2026-06-30T12:15:48.395715+00:00"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "pkg": "com.rockstargames.gtasa",
+  "icon": "icons/com.rockstargames.gtasa.jpg",
+  "name": "Grand Theft Auto; San Andreas   Rockstar Games   Version 2.10 ~ Modified (Unlimited; Money)",
+  "updated": "2026-06-30T12:15:53.691509+00:00",
+  "versions": [
+    {
+      "version": "2.10",
+      "vcode": null,
+      "minsdk": 24,
+      "targetsdk": 30,
+      "abi": [
+        "arm64-v8a",
+        "armeabi-v7a"
+      ],
+      "size": "57.4 MB",
+      "size_bytes": 60197398,
+      "apk_url": "https://archive.org/download/android--games--apk/Grand Theft Auto; San Andreas - Rockstar Games/Grand Theft Auto; San Andreas - Rockstar Games - Version 2.10 ~ Modified (Unlimited; Money).apk",
+      "obb_url": null,
+      "added": "2026-06-30T12:15:51.378835+00:00"
+    }
+  ]
+}

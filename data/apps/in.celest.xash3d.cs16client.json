@@ -1,0 +1,23 @@
+{
+  "pkg": "in.celest.xash3d.cs16client",
+  "name": "Counter Strike 1.6   Flying With Gauss   Version 1.33   Client",
+  "updated": "2026-06-30T12:15:46.354965+00:00",
+  "versions": [
+    {
+      "version": "1.33",
+      "vcode": null,
+      "minsdk": 3,
+      "targetsdk": 23,
+      "abi": [
+        "armeabi",
+        "armeabi-v7a",
+        "x86"
+      ],
+      "size": "9.1 MB",
+      "size_bytes": 9587287,
+      "apk_url": "https://archive.org/download/android--games--apk/Counter-Strike 1.6 - Flying With Gauss/Counter-Strike 1.6 - Flying With Gauss - Version 1.33 - Client.apk",
+      "obb_url": null,
+      "added": "2026-06-30T12:15:46.354806+00:00"
+    }
+  ]
+}

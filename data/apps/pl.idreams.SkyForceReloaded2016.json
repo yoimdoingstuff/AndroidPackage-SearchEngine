@@ -1,0 +1,23 @@
+{
+  "pkg": "pl.idreams.SkyForceReloaded2016",
+  "icon": "icons/pl.idreams.SkyForceReloaded2016.jpg",
+  "name": "Sky Force; Reloaded   Infinite Dreams   Version 1.91 ~ Modified (Removed; Advertisements. Unlocked; Upto Stage 8. Unlimited; Money. Purchased; Sx2 Star Doubler, Planes Generator)",
+  "updated": "2026-06-30T12:16:11.722226+00:00",
+  "versions": [
+    {
+      "version": "1.91",
+      "vcode": null,
+      "minsdk": 19,
+      "targetsdk": 27,
+      "abi": [
+        "armeabi-v7a",
+        "x86"
+      ],
+      "size": "35.6 MB",
+      "size_bytes": 37320711,
+      "apk_url": "https://archive.org/download/android--games--apk/Sky Force; Reloaded - Infinite Dreams/Sky Force; Reloaded - Infinite Dreams - Version 1.91 ~ Modified (Removed; Advertisements. Unlocked; Upto Stage 8. Unlimited; Money. Purchased; SX2-Star Doubler, Planes Generator).apk",
+      "obb_url": null,
+      "added": "2026-06-30T12:16:09.823325+00:00"
+    }
+  ]
+}

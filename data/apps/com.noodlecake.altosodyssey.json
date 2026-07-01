@@ -1,0 +1,22 @@
+{
+  "pkg": "com.noodlecake.altosodyssey",
+  "icon": "icons/com.noodlecake.altosodyssey.jpg",
+  "name": "Alto'S Odyssey   Noodlecake Studios Inc   Version 1.0.2",
+  "updated": "2026-06-30T12:15:39.357396+00:00",
+  "versions": [
+    {
+      "version": "1.0.2",
+      "vcode": null,
+      "minsdk": 16,
+      "targetsdk": 27,
+      "abi": [
+        "armeabi-v7a"
+      ],
+      "size": "56.8 MB",
+      "size_bytes": 59524117,
+      "apk_url": "https://archive.org/download/android--games--apk/Alto's Odyssey - Noodlecake Studios Inc/Alto's Odyssey - Noodlecake Studios Inc - Version 1.0.2.apk",
+      "obb_url": null,
+      "added": "2026-06-30T12:15:30.355158+00:00"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "pkg": "com.namcobandaigames.pacmantournaments",
+  "icon": "icons/com.namcobandaigames.pacmantournaments.jpg",
+  "name": "Pac Man   Bandai Namco   Version 6.6.3 ~ Modified (Unlimited; Tokens (Credits))",
+  "updated": "2026-06-30T12:16:04.705596+00:00",
+  "versions": [
+    {
+      "version": "6.6.3",
+      "vcode": null,
+      "minsdk": 16,
+      "targetsdk": 26,
+      "abi": [
+        "armeabi"
+      ],
+      "size": "33.4 MB",
+      "size_bytes": 35064264,
+      "apk_url": "https://archive.org/download/android--games--apk/PAC-MAN - BANDAI NAMCO/PAC-MAN - BANDAI NAMCO - Version 6.6.3 ~ Modified (Unlimited; Tokens (Credits)).apk",
+      "obb_url": null,
+      "added": "2026-06-30T12:16:01.730526+00:00"
+    }
+  ]
+}

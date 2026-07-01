@@ -1,0 +1,23 @@
+{
+  "pkg": "com.axlebolt.standoff2",
+  "icon": "icons/com.axlebolt.standoff2.jpg",
+  "name": "[Gp] Standoff 2 (0.6.0)",
+  "updated": "2026-06-30T12:13:37.149802+00:00",
+  "versions": [
+    {
+      "version": "0.6.0",
+      "vcode": null,
+      "minsdk": 14,
+      "targetsdk": 26,
+      "abi": [
+        "armeabi-v7a",
+        "x86"
+      ],
+      "size": "45.2 MB",
+      "size_bytes": 47364364,
+      "apk_url": "https://archive.org/download/gp-standoff-2-0.6.0/[GP] Standoff 2 (0.6.0).apk",
+      "obb_url": null,
+      "added": "2026-06-30T12:13:37.149685+00:00"
+    }
+  ]
+}

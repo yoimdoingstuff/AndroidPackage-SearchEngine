@@ -1,0 +1,22 @@
+{
+  "pkg": "com.digitalreality.sinemora",
+  "icon": "icons/com.digitalreality.sinemora.jpg",
+  "name": "Sine Mora   Digital Reality   Version 1.33 ~ Modified (Unlocked; Levels)",
+  "updated": "2026-06-30T12:16:05.924214+00:00",
+  "versions": [
+    {
+      "version": "1.33",
+      "vcode": null,
+      "minsdk": 10,
+      "targetsdk": 17,
+      "abi": [
+        "armeabi-v7a"
+      ],
+      "size": "5.5 MB",
+      "size_bytes": 5746267,
+      "apk_url": "https://archive.org/download/android--games--apk/Sine Mora - Digital Reality/Sine Mora - Digital Reality - Version 1.33 ~ Modified (Unlocked; Levels).apk",
+      "obb_url": null,
+      "added": "2026-06-30T12:16:03.686607+00:00"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "pkg": "com.playdead.limbo.full",
+  "icon": "icons/com.playdead.limbo.full.jpg",
+  "name": "Limbo   Playdead   Version 1.16",
+  "updated": "2026-06-30T12:15:55.740263+00:00",
+  "versions": [
+    {
+      "version": "1.16",
+      "vcode": null,
+      "minsdk": 19,
+      "targetsdk": 22,
+      "abi": [
+        "armeabi-v7a",
+        "x86"
+      ],
+      "size": "24.3 MB",
+      "size_bytes": 25434543,
+      "apk_url": "https://archive.org/download/android--games--apk/Limbo - Playdead/Limbo - Playdead - Version 1.16.apk",
+      "obb_url": null,
+      "added": "2026-06-30T12:15:55.740127+00:00"
+    }
+  ]
+}

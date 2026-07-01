@@ -1,0 +1,22 @@
+{
+  "pkg": "com.CarXTech.highWay",
+  "icon": "icons/com.CarXTech.highWay.jpg",
+  "name": "Carx Highway Racing   Carx Technologies   Version 1.59.1 ~ Modified (Unlimited; Money)",
+  "updated": "2026-06-30T12:15:40.365552+00:00",
+  "versions": [
+    {
+      "version": "1.59.1",
+      "vcode": null,
+      "minsdk": 16,
+      "targetsdk": 26,
+      "abi": [
+        "armeabi-v7a"
+      ],
+      "size": "21.6 MB",
+      "size_bytes": 22658353,
+      "apk_url": "https://archive.org/download/android--games--apk/CarX Highway Racing - CarX Technologies/CarX Highway Racing - CarX Technologies - Version 1.59.1 ~ Modified (Unlimited; Money).apk",
+      "obb_url": null,
+      "added": "2026-06-30T12:15:35.020678+00:00"
+    }
+  ]
+}
