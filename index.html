@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<title>APK Archive</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #f1f1f1; font-family: Arial, Helvetica, sans-serif; font-size: 13px; color: #333; }
+
+/* ── TOP BAR ── */
+#topbar { background: #3d3d3d; height: 29px; line-height: 29px; padding: 0 14px; }
+#topbar-inner { max-width: 980px; margin: 0 auto; overflow: hidden; }
+#topbar .logo { color: #fff; font-size: 12px; float: left; }
+#topbar .logo b { color: #4fc3f7; }
+#topbar .tag { color: #aaa; font-size: 11px; float: right; }
+
+/* ── HEADER ── */
+#header { background: #fff; border-bottom: 1px solid #ddd; }
+#header-inner { max-width: 980px; margin: 0 auto; padding: 8px 14px; overflow: hidden; }
+#site-title { float: left; }
+#site-title h1 { font-size: 21px; font-weight: normal; color: #555; line-height: 1; }
+#site-title h1 b { color: #4285f4; }
+#site-title .sub { font-size: 11px; color: #999; margin-top: 2px; }
+#header-search { float: right; margin-top: 4px; }
+#header-search input { border: 1px solid #bbb; border-right: none; padding: 6px 10px; font-size: 13px; width: 210px; border-radius: 2px 0 0 2px; outline: none; }
+#header-search button { background: #f5f5f5; border: 1px solid #bbb; padding: 6px 12px; font-size: 13px; cursor: pointer; border-radius: 0 2px 2px 0; }
+#header-search button:active { background: #e0e0e0; }
+
+/* ── NAV ── */
+#nav { background: #fff; border-bottom: 2px solid #ddd; }
+#nav-inner { max-width: 980px; margin: 0 auto; padding: 0 14px; overflow: hidden; }
+.ntab { display: inline-block; padding: 8px 13px; font-size: 13px; color: #555; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; font-weight: bold; }
+.ntab.active { color: #4285f4; border-bottom-color: #4285f4; }
+.ntab:hover { color: #333; }
+#nr { float: right; padding-top: 6px; }
+#rnd { background: none; border: 1px solid #ccc; padding: 4px 10px; font-size: 12px; cursor: pointer; border-radius: 2px; color: #555; }
+#rnd:active { background: #f0f0f0; }
+
+/* ── LAYOUT ── */
+#wrap { max-width: 980px; margin: 0 auto; padding: 12px 14px; overflow: hidden; }
+#sidebar { float: left; width: 168px; margin-right: 14px; }
+#main { overflow: hidden; }
+
+/* ── SIDEBAR ── */
+.sbox { background: #fff; border: 1px solid #ddd; margin-bottom: 10px; }
+.shead { background: #f5f5f5; border-bottom: 1px solid #ddd; padding: 7px 9px; font-size: 12px; font-weight: bold; color: #444; }
+.sbody { padding: 4px 0; }
+.slink { display: block; padding: 5px 9px; font-size: 12px; color: #1a73e8; cursor: pointer; }
+.slink:hover { background: #e8f0fe; }
+.sfilt { padding: 7px 9px; }
+.sfilt label { display: block; color: #555; font-size: 11px; margin-bottom: 3px; margin-top: 5px; }
+.sfilt label:first-child { margin-top: 0; }
+.sfilt input[type=text], .sfilt select { width: 100%; border: 1px solid #ccc; padding: 4px 5px; font-size: 12px; border-radius: 2px; background: #fff; }
+.sfilt .ck { margin-top: 5px; font-size: 12px; color: #555; }
+.sfilt .ck input { vertical-align: middle; margin-right: 3px; }
+#fbtn { display: block; width: 100%; background: #4285f4; color: #fff; border: none; padding: 7px; font-size: 13px; font-weight: bold; cursor: pointer; margin-top: 7px; border-radius: 2px; }
+#fbtn:active { background: #2a6dda; }
+
+/* ── STATUS ── */
+#status-bar { margin-bottom: 9px; }
+.smsg { background: #fff3cd; border: 1px solid #ffd966; color: #7a5800; padding: 7px 9px; font-size: 12px; border-radius: 2px; }
+.smsg.err { background: #fce8e6; border-color: #f5c6c6; color: #c62828; }
+
+/* ── SECTION HEADER ── */
+.shead2 { overflow: hidden; margin-bottom: 7px; border-bottom: 1px solid #ddd; padding-bottom: 5px; }
+.shead2 h2 { font-size: 14px; font-weight: bold; color: #333; float: left; }
+.sall { float: right; font-size: 12px; color: #1a73e8; cursor: pointer; line-height: 20px; }
+.rcount { float: right; font-size: 12px; color: #888; line-height: 20px; }
+
+/* ── HOME STATS ── */
+.stats { overflow: hidden; margin-bottom: 12px; }
+.stbox { float: left; width: 31%; margin-right: 3.5%; background: #fff; border: 1px solid #ddd; padding: 10px; text-align: center; }
+.stbox:last-child { margin-right: 0; }
+.stnum { font-size: 24px; font-weight: bold; color: #4285f4; }
+.stlbl { font-size: 11px; color: #888; margin-top: 2px; }
+
+/* ── FEATURED STRIP ── */
+.fstrip { overflow: hidden; margin-bottom: 12px; }
+.fcard { float: left; width: 23%; margin-right: 2.5%; background: #fff; border: 1px solid #ddd; padding: 9px; cursor: pointer; }
+.fcard:last-child { margin-right: 0; }
+.fcard:active { background: #f5f5f5; }
+.ficon-wrap { width: 48px; height: 48px; margin: 0 auto 5px; }
+.fip { width: 48px; height: 48px; border-radius: 8px; display: block; text-align: center; line-height: 48px; font-size: 20px; font-weight: bold; color: #fff; }
+.fcard img { width: 48px; height: 48px; border-radius: 6px; display: block; }
+.fname { font-size: 12px; font-weight: bold; color: #333; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.fpkg  { font-size: 10px; color: #00838f; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* ── QUICK FILTER CHIPS ── */
+.qchip { display: inline-block; background: #fff; border: 1px solid #ddd; color: #444; border-radius: 12px; padding: 4px 11px; margin: 3px 2px 3px 0; font-size: 12px; cursor: pointer; }
+.qchip:active { background: #e8f0fe; border-color: #4285f4; color: #1558b0; }
+
+/* ── SEARCH RESULT ENTRY ── */
+.entry { background: #fff; border: 1px solid #ddd; margin-bottom: 7px; padding: 10px; overflow: hidden; cursor: pointer; }
+.entry:hover { background: #fafafa; }
+.eico { float: left; width: 56px; height: 56px; margin-right: 10px; border-radius: 6px; overflow: hidden; border: 1px solid #e8e8e8; }
+.eip  { width: 56px; height: 56px; display: block; text-align: center; line-height: 56px; font-size: 22px; font-weight: bold; color: #fff; }
+.eico img { width: 56px; height: 56px; }
+.ebody { overflow: hidden; }
+.ename { font-size: 15px; font-weight: bold; color: #1a73e8; margin-bottom: 1px; }
+.epkg  { font-size: 11px; color: #00838f; margin-bottom: 3px; font-family: monospace; }
+.emeta { font-size: 12px; color: #555; }
+.emeta span { margin-right: 12px; }
+.badge { display: inline-block; background: #e8f0fe; color: #1558b0; border: 1px solid #c5d5f5; border-radius: 10px; padding: 1px 7px; font-size: 11px; margin: 1px 2px 1px 0; }
+.badge.abi { background: #fce8e6; color: #b31412; border-color: #f5c6c6; }
+.badge.obb { background: #fff8e1; color: #e65100; border-color: #ffe0b2; }
+
+/* ══════════════════════════════════════════════════════════
+   APP DETAIL PAGE  —  styled after 2012 Google Play Store
+   Package ID appears in teal where the developer name would
+   normally sit. Download buttons mirror the Install button.
+   ══════════════════════════════════════════════════════════ */
+#detail { display: none; }
+.back-btn { display: inline-block; color: #1a73e8; font-size: 13px; cursor: pointer; margin-bottom: 10px; padding: 2px 0; }
+.back-btn:hover { text-decoration: underline; }
+
+/* Main app card */
+.det-card { background: #fff; border: 1px solid #ddd; margin-bottom: 10px; }
+
+/* Header: icon + name + package ID + install buttons */
+.det-hdr { padding: 16px; overflow: hidden; border-bottom: 1px solid #ebebeb; }
+.det-ico-box { float: left; width: 130px; margin-right: 16px; }
+.det-ico-box img { width: 130px; height: 130px; border-radius: 8px; border: 1px solid #e0e0e0; display: block; }
+.det-ico-ph { width: 130px; height: 130px; border-radius: 8px; display: block; text-align: center; line-height: 130px; font-size: 52px; font-weight: bold; color: #fff; }
+.det-info { overflow: hidden; padding-top: 2px; }
+.det-name { font-size: 20px; font-weight: bold; color: #333; line-height: 1.2; margin-bottom: 5px; }
+/* Package ID shown in teal — occupies the same visual position as the
+   developer/publisher name in the real 2012 Play Store layout */
+.det-pkg-id { font-size: 13px; color: #00838f; margin-bottom: 14px; font-family: monospace; }
+/* Download buttons styled after the Play Store's green Install button */
+.det-btns { margin-bottom: 12px; }
+.det-dl { display: inline-block; background: #00838f; color: #fff; padding: 7px 18px; font-size: 13px; font-weight: bold; border-radius: 2px; text-decoration: none; margin-right: 8px; margin-bottom: 4px; border: none; cursor: pointer; }
+.det-dl:active { background: #006064; }
+.det-dl.obb { background: #e65100; }
+.det-dl.obb:active { background: #bf360c; }
+.det-quick { font-size: 12px; color: #888; }
+.det-quick span { margin-right: 14px; }
+
+/* Section dividers within the card */
+.det-sec { border-top: 1px solid #ebebeb; padding: 14px 16px; }
+.det-sec-title { font-size: 14px; font-weight: bold; color: #444; margin-bottom: 10px;
+                 padding-bottom: 6px; border-bottom: 1px solid #f0f0f0; }
+
+/* Version history table */
+.vtbl-wrap { overflow-x: auto; }   /* horizontal scroll on small screens */
+.vtbl { width: 100%; border-collapse: collapse; font-size: 12px; min-width: 540px; }
+.vtbl th { background: #f5f5f5; padding: 7px 9px; text-align: left;
+           border-bottom: 2px solid #ddd; color: #666; font-weight: bold; white-space: nowrap; }
+.vtbl td { padding: 8px 9px; border-bottom: 1px solid #f0f0f0; vertical-align: middle; }
+.vtbl tr:last-child td { border-bottom: none; }
+.vtbl tr:hover td { background: #fafafa; }
+/* Individual version download link, same green as det-dl but smaller */
+.vdl { display: inline-block; background: #00838f; color: #fff; padding: 3px 10px;
+       font-size: 11px; border-radius: 2px; text-decoration: none; margin-right: 4px;
+       white-space: nowrap; }
+.vdl.obb { background: #e65100; }
+.vdl:active { opacity: 0.8; }
+/* Latest-version highlight */
+.vtbl tr.latest td { background: #f0fafa; }
+.vtbl tr.latest td:first-child { border-left: 3px solid #00838f; }
+.ver-latest-tag { font-size: 10px; background: #00838f; color: #fff; border-radius: 8px;
+                  padding: 1px 6px; margin-left: 5px; vertical-align: middle; }
+
+/* Additional information table */
+.itbl { width: 100%; border-collapse: collapse; font-size: 12px; }
+.itbl td { padding: 6px 9px; border-bottom: 1px solid #f5f5f5; vertical-align: top; }
+.itbl tr:last-child td { border-bottom: none; }
+.itbl td:first-child { color: #999; width: 150px; white-space: nowrap; }
+.itbl td:last-child { color: #333; word-break: break-all; }
+
+/* ── PAGINATION ── */
+#pagination { text-align: center; margin: 10px 0; }
+#pagination button { background: #fff; border: 1px solid #ddd; color: #4285f4; padding: 5px 13px; font-size: 13px; cursor: pointer; border-radius: 2px; margin: 2px; }
+#pagination button:hover { background: #e8f0fe; }
+#pagination button.active { background: #4285f4; color: #fff; border-color: #4285f4; cursor: default; }
+
+/* ── MISC ── */
+.clearfix:after { content: ""; display: table; clear: both; }
+.hidden { display: none; }
+</style>
+</head>
+<body>
+
+<div id="topbar"><div id="topbar-inner">
+  <span class="logo">&#9654; <b>APK</b> Archive</span>
+  <span class="tag">Preserved Android apps from archive.org</span>
+</div></div>
+
+<div id="header"><div id="header-inner">
+  <div id="site-title">
+    <h1><b>APK</b> Archive</h1>
+    <div class="sub">A searchable index of preserved Android apps</div>
+  </div>
+  <div id="header-search">
+    <input type="text" id="s-name" placeholder="Search apps&hellip;" onkeydown="if((event||window.event).keyCode===13)doSearch()">
+    <button onclick="doSearch()">Search</button>
+  </div>
+</div></div>
+
+<div id="nav"><div id="nav-inner">
+  <span class="ntab active" id="tab-home" onclick="showHome()">Home</span>
+  <span class="ntab" onclick="qf(0)">All Apps</span>
+  <span class="ntab" onclick="qf(1)">With OBB</span>
+  <span class="ntab" onclick="qf(2)">Old Device Compatible</span>
+  <div id="nr"><button id="rnd" onclick="rndApp()">&#9654; Random</button></div>
+</div></div>
+
+<div id="wrap" class="clearfix">
+  <!-- SIDEBAR -->
+  <div id="sidebar">
+    <div class="sbox">
+      <div class="shead">Filter</div>
+      <div class="sbody">
+        <div class="sfilt">
+          <label>Package ID</label>
+          <input type="text" id="s-pkg" placeholder="com.rovio.">
+          <label>Architecture</label>
+          <select id="s-abi">
+            <option value="">Any</option>
+            <option value="arm64-v8a">arm64-v8a</option>
+            <option value="armeabi-v7a">armeabi-v7a</option>
+            <option value="armeabi">armeabi</option>
+            <option value="x86">x86</option>
+            <option value="x86_64">x86_64</option>
+          </select>
+          <label>Max Min-SDK</label>
+          <input type="text" id="s-minsdk" placeholder="e.g. 10">
+          <div class="ck"><label><input type="checkbox" id="s-hasobb"> Has OBB bundle</label></div>
+          <button id="fbtn" onclick="doSearch()">Apply Filter</button>
+        </div>
+      </div>
+    </div>
+    <div class="sbox">
+      <div class="shead">Quick Filters</div>
+      <div class="sbody">
+        <span class="slink" onclick="qf(3)">armeabi-v7a</span>
+        <span class="slink" onclick="qf(4)">Pure Java</span>
+        <span class="slink" onclick="qf(5)">Android 2.x+</span>
+        <span class="slink" onclick="qf(6)">Android 4.x+</span>
+        <span class="slink" onclick="qf(1)">Has OBB</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div id="main">
+    <div id="status-bar"></div>
+    <div id="homescreen"></div>
+
+    <div id="results-wrap" class="hidden">
+      <div class="shead2 clearfix">
+        <h2 id="r-title">Results</h2>
+        <span class="rcount" id="r-count"></span>
+      </div>
+      <div id="content"></div>
+      <div id="pagination"></div>
+    </div>
+
+    <!-- APP DETAIL PAGE -->
+    <div id="detail"></div>
+  </div>
+</div>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────────────
+var INDEX = [], DB_LOADED = false;
+var curResults = [], curPage = 0, PAGE = 10;
+var searchDone = false;
+
+// Android SDK level → version name mapping
+var SDK = {
+  3:"1.5", 4:"1.6", 5:"2.0", 6:"2.0.1", 7:"2.1",
+  8:"2.2", 9:"2.3", 10:"2.3.3", 11:"3.0", 12:"3.1",
+  13:"3.2", 14:"4.0", 15:"4.0.3", 16:"4.1", 17:"4.2",
+  18:"4.3", 19:"4.4", 21:"5.0", 22:"5.1", 23:"6.0",
+  24:"7.0", 25:"7.1", 26:"8.0", 27:"8.1", 28:"9",
+  29:"10",  30:"11",  31:"12",  32:"12L", 33:"13"
+};
+var COLORS = ["#4285f4","#ea4335","#34a853","#fbbc04","#9c27b0",
+              "#00838f","#e65100","#1565c0","#2e7d32","#6a1b9a"];
+
+function sdkLabel(n) {
+  if (!n && n !== 0) return "?";
+  var v = SDK[n];
+  return "API " + n + (v ? " (Android " + v + ")" : "");
+}
+function sdkShort(n) {
+  if (!n && n !== 0) return "?";
+  var v = SDK[n];
+  return v ? "Android " + v : "API " + n;
+}
+function icolor(name) {
+  var h = 0; name = name || "";
+  for (var i=0;i<name.length;i++) h=(h*31+name.charCodeAt(i))&0xffffffff;
+  return COLORS[Math.abs(h)%COLORS.length];
+}
+function esc(s) {
+  if (s === null || s === undefined) return "";
+  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;")
+                  .replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+function setStatus(msg, cls) {
+  document.getElementById("status-bar").innerHTML =
+    '<div class="smsg '+(cls||"")+'">'+esc(msg)+'</div>';
+}
+function clearStatus() { document.getElementById("status-bar").innerHTML=""; }
+
+// ── LOAD _index.json ──────────────────────────────────────────────────────────
+function loadDB() {
+  setStatus("Loading index…");
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET","data/_index.json",true);
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState !== 4) return;
+    if (xhr.status === 200) {
+      try {
+        INDEX = JSON.parse(xhr.responseText);
+        DB_LOADED = true; clearStatus();
+        if (!loadURL()) renderHome();
+      } catch(e) { setStatus("Failed to parse index: "+e,"err"); }
+    } else {
+      setStatus("data/_index.json not found. Run the crawler and rebuild the index.","");
+      DB_LOADED = true; renderHome();
+    }
+  };
+  xhr.send();
+}
+
+// ── HOMESCREEN ────────────────────────────────────────────────────────────────
+function renderHome() {
+  searchDone = false;
+  document.getElementById("results-wrap").className = "hidden";
+  document.getElementById("detail").style.display = "none";
+  document.getElementById("detail").innerHTML = "";
+  var hs = document.getElementById("homescreen");
+
+  var withObb = 0, totalVers = 0;
+  for (var i=0;i<INDEX.length;i++) {
+    if (INDEX[i].has_obb) withObb++;
+    totalVers += (INDEX[i].versions || 0);
+  }
+
+  var html = '<div class="stats clearfix">';
+  html += '<div class="stbox"><div class="stnum">'+INDEX.length+'</div><div class="stlbl">Total Apps</div></div>';
+  html += '<div class="stbox"><div class="stnum">'+totalVers+'</div><div class="stlbl">Total Versions</div></div>';
+  html += '<div class="stbox"><div class="stnum">'+withObb+'</div><div class="stlbl">With OBB Bundle</div></div>';
+  html += '</div>';
+
+  html += '<div class="shead2 clearfix"><h2>Featured Apps</h2><span class="sall" onclick="qf(0)">See all &rarr;</span></div>';
+  html += '<div class="fstrip clearfix">';
+  for (var i=0;i<Math.min(4,INDEX.length);i++) html += fcardHTML(INDEX[i]);
+  html += '</div>';
+
+  if (INDEX.length > 4) {
+    html += '<div class="shead2 clearfix" style="margin-top:4px"><h2>Recently Added</h2></div>';
+    html += '<div class="fstrip clearfix">';
+    var rec = INDEX.slice(-4).reverse();
+    for (var i=0;i<rec.length;i++) html += fcardHTML(rec[i]);
+    html += '</div>';
+  }
+
+  html += '<div class="shead2 clearfix" style="margin-top:4px"><h2>Browse By</h2></div><div style="margin-bottom:10px">';
+  var qfs=["All Apps","With OBB Bundle","Old Device (API &le;10)","armeabi-v7a","Pure Java","Android 2.x+","Android 4.x+"];
+  for (var i=0;i<qfs.length;i++) html+='<span class="qchip" onclick="qf('+i+')">'+qfs[i]+'</span>';
+  html += '</div>';
+
+  var obbApps=[];
+  for (var i=0;i<INDEX.length&&obbApps.length<4;i++) if (INDEX[i].has_obb) obbApps.push(INDEX[i]);
+  if (obbApps.length) {
+    html+='<div class="shead2 clearfix"><h2>Apps with OBB Bundle</h2><span class="sall" onclick="qf(1)">See all &rarr;</span></div>';
+    html+='<div class="fstrip clearfix">';
+    for (var i=0;i<obbApps.length;i++) html+=fcardHTML(obbApps[i]);
+    html+='</div>';
+  }
+
+  hs.innerHTML = html;
+}
+
+function fcardHTML(e) {
+  var col = icolor(e.name), letter=(e.name||"?").charAt(0).toUpperCase();
+  var icon = e.icon
+    ? '<img src="data/'+esc(e.icon)+'" width="48" height="48" alt="">'
+    : '<span class="fip" style="background:'+col+'">'+letter+'</span>';
+  return '<div class="fcard" onclick="openApp(\''+esc(e.pkg||"")+'\')"> '
+    + '<div class="ficon-wrap">'+icon+'</div>'
+    + '<div class="fname">'+esc(e.name||"?")+'</div>'
+    + '<div class="fpkg">'+esc(e.pkg||"")+'</div>'
+    + '</div>';
+}
+
+function showHome() {
+  document.getElementById("s-name").value="";
+  document.getElementById("homescreen").innerHTML="";
+  renderHome(); updateURL();
+}
+
+// ── QUICK FILTERS ─────────────────────────────────────────────────────────────
+var _QF=[{},{obb:true},{minsdk:10},{abi:"armeabi-v7a"},{pure:true},{minsdk:10},{minsdk:15}];
+
+function qf(idx) {
+  var f=_QF[idx]||{};
+  document.getElementById("s-name").value="";
+  document.getElementById("s-pkg").value="";
+  document.getElementById("s-abi").value=(f.abi&&f.abi!="_pure")?f.abi:"";
+  document.getElementById("s-minsdk").value=f.minsdk?String(f.minsdk):"";
+  document.getElementById("s-hasobb").checked=!!f.obb;
+  window._pure=!!f.pure;
+  doSearch();
+}
+
+// ── SEARCH ────────────────────────────────────────────────────────────────────
+function doSearch() {
+  if (!DB_LOADED) { setStatus("Index not loaded yet."); return; }
+  var name   = document.getElementById("s-name").value.toLowerCase().trim();
+  var pkg    = document.getElementById("s-pkg").value.toLowerCase().trim();
+  var abi    = document.getElementById("s-abi").value;
+  var maxsdk = parseInt(document.getElementById("s-minsdk").value,10);
+  var hasobb = document.getElementById("s-hasobb").checked;
+  var pure   = !!window._pure;
+
+  var res=[];
+  for (var i=0;i<INDEX.length;i++) {
+    var e=INDEX[i];
+    if (name&&(e.name||"").toLowerCase().indexOf(name)===-1
+            &&(e.pkg||"").toLowerCase().indexOf(name)===-1) continue;
+    if (pkg &&(e.pkg||"").toLowerCase().indexOf(pkg)===-1) continue;
+    if (abi &&(!e.abis||e.abis.indexOf(abi)===-1)) continue;
+    if (pure&&e.abis&&e.abis.length>0) continue;
+    if (!isNaN(maxsdk)&&e.minsdk>maxsdk) continue;
+    if (hasobb&&!e.has_obb) continue;
+    res.push(e);
+  }
+
+  curResults=res; curPage=0; searchDone=true;
+  document.getElementById("homescreen").innerHTML="";
+  document.getElementById("detail").style.display="none";
+  document.getElementById("detail").innerHTML="";
+  document.getElementById("results-wrap").className="";
+  document.getElementById("r-title").innerHTML=name?esc('"'+name+'"'):"All Apps";
+  renderResults(); updateURL();
+}
+
+function rndApp() {
+  if (!DB_LOADED||!INDEX.length) return;
+  openApp(INDEX[Math.floor(Math.random()*INDEX.length)].pkg||"");
+}
+
+// ── SEARCH RESULT CARDS ───────────────────────────────────────────────────────
+function indexEntryHTML(e) {
+  var col=icolor(e.name), letter=(e.name||"?").charAt(0).toUpperCase();
+  var icon=e.icon
+    ?'<img src="data/'+esc(e.icon)+'" width="56" height="56" alt="">'
+    :'<span class="eip" style="background:'+col+'">'+letter+'</span>';
+  var abiBadges="";
+  if (e.abis&&e.abis.length)
+    for (var i=0;i<e.abis.length;i++) abiBadges+='<span class="badge abi">'+esc(e.abis[i])+'</span>';
+  else abiBadges='<span class="badge">pure Java</span>';
+  return '<div class="entry clearfix" onclick="openApp(\''+esc(e.pkg||"")+'\')"> '
+    + '<div class="eico">'+icon+'</div>'
+    + '<div class="ebody">'
+    + '<div class="ename">'+esc(e.name||"Unknown")+'</div>'
+    + '<div class="epkg">'+esc(e.pkg||"")+'</div>'
+    + '<div class="emeta">'
+    + '<span>'+e.versions+' version'+(e.versions!==1?'s':'')+'</span>'
+    + (e.minsdk?'<span>Min: '+sdkShort(e.minsdk)+'</span>':'')
+    + '</div>'
+    + '<div>'+abiBadges+(e.has_obb?'<span class="badge obb">OBB</span>':'')+'</div>'
+    + '</div></div>';
+}
+
+function renderResults() {
+  var total=curResults.length;
+  var content=document.getElementById("content");
+  if (total===0) {
+    content.innerHTML='<div style="padding:22px;text-align:center;color:#888">No apps found.</div>';
+    document.getElementById("r-count").innerHTML="";
+    document.getElementById("pagination").innerHTML=""; return;
+  }
+  var start=curPage*PAGE, end=Math.min(start+PAGE,total);
+  document.getElementById("r-count").innerHTML=(start+1)+"–"+end+" of "+total;
+  var html="";
+  for (var i=start;i<end;i++) html+=indexEntryHTML(curResults[i]);
+  content.innerHTML=html; renderPager(total);
+}
+
+function renderPager(total) {
+  var pages=Math.ceil(total/PAGE);
+  if (pages<=1){document.getElementById("pagination").innerHTML="";return;}
+  var html="";
+  if (curPage>0) html+='<button onclick="goPage('+(curPage-1)+')">&#8592; Prev</button> ';
+  var s=Math.max(0,curPage-2),e=Math.min(pages-1,curPage+2);
+  for (var p=s;p<=e;p++)
+    html+='<button onclick="goPage('+p+')"'+(p===curPage?' class="active" disabled':'')+'>'+(p+1)+'</button> ';
+  if (curPage<pages-1) html+='<button onclick="goPage('+(curPage+1)+')">Next &#8594;</button>';
+  document.getElementById("pagination").innerHTML=html;
+}
+function goPage(p){curPage=p;renderResults();window.scrollTo(0,0);}
+
+// ── APP DETAIL PAGE ────────────────────────────────────────────────────────────
+// Fetches data/apps/{pkg}.json then renders the full 2012-Play-Store-style page.
+function openApp(pkg) {
+  if (!pkg) return;
+  var det=document.getElementById("detail");
+  det.style.display="block";
+  det.innerHTML='<div style="padding:14px;color:#888">Loading…</div>';
+  document.getElementById("results-wrap").className="hidden";
+  document.getElementById("homescreen").innerHTML="";
+
+  var xhr=new XMLHttpRequest();
+  xhr.open("GET","data/apps/"+pkg+".json",true);
+  xhr.onreadystatechange=function(){
+    if (xhr.readyState!==4) return;
+    if (xhr.status===200) {
+      try { renderDetail(JSON.parse(xhr.responseText)); }
+      catch(e) { det.innerHTML='<div style="padding:14px;color:#c62828">Parse error: '+esc(String(e))+'</div>'; }
+    } else {
+      // Fallback: build a minimal view from whatever the index has
+      for (var i=0;i<INDEX.length;i++) {
+        if (INDEX[i].pkg===pkg) { renderDetailLite(INDEX[i]); return; }
+      }
+      det.innerHTML='<div style="padding:14px;color:#c62828">App data not found ('+esc(pkg)+').</div>';
+    }
+  };
+  xhr.send();
+}
+
+function renderDetail(d) {
+  var pkg      = d.pkg || "?";
+  var name     = d.name || guess_name_from_pkg(pkg);
+  var vs       = d.versions || [];
+  var latest   = vs.length ? vs[0] : {};    // versions are sorted newest-first by crawler
+  var allAbis  = {};
+  for (var i=0;i<vs.length;i++) {
+    var ab=vs[i].abi||[];
+    for (var j=0;j<ab.length;j++) allAbis[ab[j]]=true;
+  }
+  var abiList  = Object.keys ? Object.keys(allAbis) : [];
+  var hasObb   = vs.some ? vs.some(function(v){return !!v.obb_url;})
+                         : (function(){for(var i=0;i<vs.length;i++) if(vs[i].obb_url) return true; return false;})();
+  var minsdk   = null;
+  for (var i=0;i<vs.length;i++) if (vs[i].minsdk && (!minsdk || vs[i].minsdk < minsdk)) minsdk = vs[i].minsdk;
+
+  var col    = icolor(name);
+  var letter = name.charAt(0).toUpperCase();
+  var iconHtml = d.icon
+    ? '<img src="data/'+esc(d.icon)+'" width="130" height="130" alt="'+esc(name)+'">'
+    : '<span class="det-ico-ph" style="background:'+col+'">'+letter+'</span>';
+
+  var html = '<span class="back-btn" onclick="goBack()">&#8592; Back to results</span>';
+
+  html += '<div class="det-card">';
+
+  // ── Header: icon + name + package ID + primary download ──────────────────
+  html += '<div class="det-hdr clearfix">';
+  html += '<div class="det-ico-box">'+iconHtml+'</div>';
+  html += '<div class="det-info">';
+  html += '<div class="det-name">'+esc(name)+'</div>';
+  // Package ID goes where the developer/publisher name would be in Play Store
+  html += '<div class="det-pkg-id">'+esc(pkg)+'</div>';
+
+  if (latest.apk_url) {
+    html += '<div class="det-btns">';
+    var verLabel = latest.version ? ' v'+latest.version : '';
+    html += '<a class="det-dl" href="'+esc(latest.apk_url)+'" rel="noopener noreferrer nofollow">&#8659; Download APK'+esc(verLabel)+'</a>';
+    if (latest.obb_url)
+      html += '<a class="det-dl obb" href="'+esc(latest.obb_url)+'" rel="noopener noreferrer nofollow">&#8659; OBB Bundle</a>';
+    html += '</div>';
+  }
+
+  html += '<div class="det-quick">';
+  if (minsdk) html += '<span>Min: '+sdkShort(minsdk)+'</span>';
+  if (abiList.length) html += '<span>'+esc(abiList.join(", ") || "Pure Java")+'</span>';
+  if (latest.size)   html += '<span>'+esc(latest.size)+'</span>';
+  html += '</div>';
+
+  html += '</div></div>';  // .det-info .det-hdr
+
+  // ── Version history ───────────────────────────────────────────────────────
+  html += '<div class="det-sec">';
+  html += '<div class="det-sec-title">Version History</div>';
+  if (vs.length === 0) {
+    html += '<div style="color:#888;font-size:12px">No versions recorded.</div>';
+  } else {
+    html += '<div class="vtbl-wrap"><table class="vtbl"><thead><tr>';
+    html += '<th>Version</th><th>Code</th><th>Min Android</th><th>Target Android</th>';
+    html += '<th>Architecture</th><th>Size</th><th>Download</th>';
+    html += '</tr></thead><tbody>';
+    for (var i=0;i<vs.length;i++) {
+      var v=vs[i];
+      var isLatest=(i===0);
+      var abi=(v.abi&&v.abi.length)?v.abi.join(", "):"(pure Java)";
+      html += '<tr'+(isLatest?' class="latest"':'')+' >';
+      html += '<td>'+esc(v.version||"?")+(isLatest?'<span class="ver-latest-tag">latest</span>':'')+'</td>';
+      html += '<td>'+esc(v.vcode||"?")+'</td>';
+      html += '<td>'+esc(sdkShort(v.minsdk))+'</td>';
+      html += '<td>'+esc(sdkShort(v.targetsdk))+'</td>';
+      html += '<td><code style="font-size:11px">'+esc(abi)+'</code></td>';
+      html += '<td>'+esc(v.size||"?")+'</td>';
+      html += '<td>';
+      if (v.apk_url) html+='<a class="vdl" href="'+esc(v.apk_url)+'" rel="noopener noreferrer nofollow">&#8659; APK</a>';
+      if (v.obb_url) html+='<a class="vdl obb" href="'+esc(v.obb_url)+'" rel="noopener noreferrer nofollow">&#8659; OBB</a>';
+      html += '</td></tr>';
+    }
+    html += '</tbody></table></div>';
+  }
+  html += '</div>';
+
+  // ── Additional information (mirrors the 2012 Play Store "Additional info" box) ──
+  html += '<div class="det-sec">';
+  html += '<div class="det-sec-title">Additional Information</div>';
+  html += '<table class="itbl">';
+  html += '<tr><td>Package ID</td><td><code>'+esc(pkg)+'</code></td></tr>';
+  if (latest.version) html+='<tr><td>Latest version</td><td>'+esc(latest.version)+(latest.vcode?' (code '+esc(latest.vcode)+')':'')+'</td></tr>';
+  if (minsdk)         html+='<tr><td>Requires Android</td><td>'+esc(sdkLabel(minsdk))+'</td></tr>';
+  if (latest.targetsdk) html+='<tr><td>Target Android</td><td>'+esc(sdkLabel(latest.targetsdk))+'</td></tr>';
+  if (abiList.length) html+='<tr><td>Architecture(s)</td><td>'+esc(abiList.join(", "))+'</td></tr>';
+  else               html+='<tr><td>Architecture(s)</td><td>Pure Java (any)</td></tr>';
+  html += '<tr><td>OBB bundle</td><td>'+(hasObb?'Yes — expansion file included':'No')+'</td></tr>';
+  html += '<tr><td>Versions archived</td><td>'+vs.length+'</td></tr>';
+  if (d.updated) html+='<tr><td>Last updated</td><td>'+esc(d.updated.slice(0,10))+'</td></tr>';
+  html += '</table>';
+  html += '</div>';
+
+  html += '</div>';  // .det-card
+  document.getElementById("detail").innerHTML = html;
+}
+
+// Minimal fallback when data/apps/{pkg}.json is missing
+function renderDetailLite(e) {
+  var col=icolor(e.name), letter=(e.name||"?").charAt(0).toUpperCase();
+  var icon=e.icon
+    ?'<img src="data/'+esc(e.icon)+'" width="130" height="130" alt="">'
+    :'<span class="det-ico-ph" style="background:'+col+'">'+letter+'</span>';
+  var html='<span class="back-btn" onclick="goBack()">&#8592; Back to results</span>';
+  html+='<div class="det-card"><div class="det-hdr clearfix">';
+  html+='<div class="det-ico-box">'+icon+'</div>';
+  html+='<div class="det-info">';
+  html+='<div class="det-name">'+esc(e.name||"?")+'</div>';
+  html+='<div class="det-pkg-id">'+esc(e.pkg||"?")+'</div>';
+  html+='</div></div>';
+  html+='<div class="det-sec"><div style="color:#888;font-size:12px">Full version data not available. Run the crawler to populate <code>data/apps/'+esc(e.pkg||"")+'.json</code>.</div></div>';
+  html+='</div>';
+  document.getElementById("detail").innerHTML=html;
+}
+
+function guess_name_from_pkg(pkg) {
+  var parts = (pkg||"").split(".");
+  return parts[parts.length-1].charAt(0).toUpperCase() + parts[parts.length-1].slice(1);
+}
+
+function goBack() {
+  document.getElementById("detail").style.display="none";
+  document.getElementById("detail").innerHTML="";
+  if (searchDone) {
+    document.getElementById("results-wrap").className="";
+  } else {
+    renderHome();
+  }
+}
+
+// ── URL STATE ─────────────────────────────────────────────────────────────────
+function updateURL() {
+  var p=[],v;
+  v=document.getElementById("s-name").value; if(v) p.push("q="+encodeURIComponent(v));
+  v=document.getElementById("s-pkg").value;  if(v) p.push("pkg="+encodeURIComponent(v));
+  v=document.getElementById("s-abi").value;  if(v) p.push("abi="+encodeURIComponent(v));
+  v=document.getElementById("s-minsdk").value; if(v) p.push("minsdk="+encodeURIComponent(v));
+  if (document.getElementById("s-hasobb").checked) p.push("obb=1");
+  if (window._pure) p.push("pure=1");
+  if (history.replaceState) history.replaceState(null,"",location.pathname+(p.length?"?"+p.join("&"):""));
+}
+function loadURL() {
+  if (!location.search) return false;
+  var parts=location.search.slice(1).split("&"), any=false;
+  for (var i=0;i<parts.length;i++) {
+    var kv=parts[i].split("="), k=kv[0], v=decodeURIComponent(kv[1]||"");
+    if(k==="q")      {document.getElementById("s-name").value=v; any=true;}
+    if(k==="pkg")    {document.getElementById("s-pkg").value=v;  any=true;}
+    if(k==="abi")    {document.getElementById("s-abi").value=v;  any=true;}
+    if(k==="minsdk") {document.getElementById("s-minsdk").value=v; any=true;}
+    if(k==="obb")    {document.getElementById("s-hasobb").checked=true; any=true;}
+    if(k==="pure")   {window._pure=true; any=true;}
+  }
+  if (any) doSearch();
+  return any;
+}
+
+var inputs=document.getElementsByTagName("input");
+for (var i=0;i<inputs.length;i++) {
+  inputs[i].onkeydown=function(e){if((e||window.event).keyCode===13) doSearch();};
+}
+
+loadDB();
+</script>
+</body>
+</html>
